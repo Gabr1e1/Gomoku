@@ -77,16 +77,24 @@ class Board:
         # 8 Directions
         dx = [1, 1, -1, -1, 0, 0, 1, -1]
         dy = [1, -1, 1, -1, 1, -1, 0, 0]
-        for i in range(8):
-            curx, cury = x + dx[i], y + dy[i]
-            flg = True
-            for step in range(4):
-                if self.board[curx][cury] != side:
-                    flg = False
-                    break
-                curx, cury = curx + dx[i], cury + dy[i]
-            if flg:
-                return 1
+        for xx in range(0, 15):
+            for yy in range(0, 15):
+
+                for i in range(8):
+                    curx, cury = xx, yy
+                    flg = True
+                    for _ in range(5):
+                        if curx < 0 or curx >= 15 or cury < 0 or cury >= 15:
+                            flg = False
+                            break
+
+                        if self.board[curx][cury] != side and (curx != x or cury != y):
+                            flg = False
+                            break
+                        curx, cury = curx + dx[i], cury + dy[i]
+                        # print(_, curx, cury, self.board[curx][cury], side)
+                    if flg:
+                        return 1
 
         return 0
 
