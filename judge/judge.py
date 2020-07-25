@@ -68,6 +68,9 @@ class Board:
         else:
             self.board[x][y] = side
 
+    def full(self):
+        return len(np.where(self.board == -1)[0]) == 0
+
     def check_win(self, side, turn, x, y):
         if turn == 2 and side == 1 and x == -1 and y == -1:
             return 0
@@ -131,6 +134,8 @@ def judge():
             win(1)
         elif ret == 1:
             win(0)
+        elif board.full():
+            win(2)
 
         a, b = ai1.action(a, b)
         if turn == 2 and a == -1 and b == -1:
@@ -143,6 +148,8 @@ def judge():
             win(0)
         elif ret == 1:
             win(1)
+        elif board.full():
+            win(2)
 
     win(2)
 
